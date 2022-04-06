@@ -1,0 +1,35 @@
+td {
+    background-color: #615458;
+    font-weight: 600;
+    font-family: 'Mitr', sans-serif;
+    color: #FAFAFF;
+    background-color: #615458;
+    border-radius: 10%;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    width: 80px;
+    height: 80px;
+    font-size: 40px;
+    margin: 100px;
+}
+
+* {
+    font-size: 30px;
+    background-color: #6E5C62;
+    color: #FAFAFF;
+    text-align: center;
+}
+
+table,
+h1 {
+    text-align: center;
+}
+
+tr {
+    margin: 100px;
+}
+
+#linharesultado{
+    visibility: hidden;
+}
