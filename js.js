@@ -1,6 +1,11 @@
+var divPrincipal = document.getElementById("principal");
+
+criaLinha(divPrincipal);
+criaCelula();
+
 var palavras = ["senso", "termo", "mexer", "nobre", "algoz", "afeto", "plena", "sutil", "vigor", "torax"];
 
-var senha = palavraRandomica(palavras);
+var senha = palavraRandomica(palavras).toUpperCase();
 var senhaSplit = senha.split("");
 var body = document.body;
 var linha = 1;
@@ -16,28 +21,24 @@ function palavraRandomica(palavras) {
 
 document.addEventListener("keydown", gerenciaTecla);
 
+
+
 function gerenciaTecla() {
     if (linha < 7) {
         var dado = document.getElementById("linha" + linha + "-td" + td);
-        if (event.key == "Enter" && palavra.length >= 5 && palavra.length != 0) {
-            if (verificaPalavra(palavra, linha)) {
-                document.getElementById("linharesultado").style.visibility = "visible";
-                document.getElementById("resultado").style.backgroundColor = "rgb(58, 163, 148)";
-                document.getElementById("resultado").innerText = "Acertou";
-                document.removeEventListener("keydown", gerenciaTecla);
-            }
 
+        if (event.key == "Enter" && palavra.length >= 5 && palavra.length != 0) {
+            verificaPalavra(palavra, linha);
             palavra = [];
             linha++;
             tentativas--;
             td = 1;
-
             if (tentativas == 0) {
-                document.getElementById("linharesultado").style.visibility = "visible";
-                document.getElementById("resultado").style.backgroundColor = "rgb(255, 105, 97)";
-                document.getElementById("resultado").innerText = "Errou";
+                perdeu();
             }
-        } else if (event.key == "Backspace") {
+
+        } else
+        if (event.key == "Backspace") {
             if (td >= 2) {
                 td--;
                 var dadoAnterior = document.getElementById("linha" + linha + "-td" + td);
@@ -48,21 +49,47 @@ function gerenciaTecla() {
             if (td != 6) {
                 dado.innerHTML = event.key;
                 palavra.push(event.key);
+                //criaFlip(linha, event.key);
                 td++;
             }
         }
     }
+
 }
+
+function criaFlip(linha, valor) {
+    var linha = document.getElementById("linha" + linha);
+    var tdFlip = document.createElement("td");
+    tdFlip.className = "cardFlip";
+    tdFlip.style.transform = "rotateY(180deg)";
+    tdFlip.innerHTML = valor;
+    linha.appendChild(tdFlip);
+}
+
+function criaTd() {
+    document.createElement("linha" + linha + "-td" + td);
+}
+
+// for (var t = 0; t < palavra.length; t++) {
+//     var flip = document.getElementById("linha" + linha + "-td" + td);
+//     flip.style.transform = "rotateY(180deg)";
+//     flip.style.transition = "1s";
+//     td++;
+// }
 
 function verificaPalavra(palavra, linha) {
     var letrasExistentes = "";
     var posicao = [0, 0, 0, 0, 0];
     var resultado = 0;
+    var td = 1;
     console.log(palavra);
     console.log(senhaSplit);
 
+    for (var p = 0; p < palavra.length; p++) {
+        palavra[p] = palavra[p].toUpperCase();
+    }
+
     //Verifica quais acertou
-    var td = 1;
     for (var i = 0; i < palavra.length; i++) {
         var dado = document.getElementById("linha" + linha + "-td" + td);
 
@@ -78,7 +105,7 @@ function verificaPalavra(palavra, linha) {
     }
 
     //Verifica quais errou, mas existem
-    var td = 1;
+    td = 1;
     for (var i = 0; i < palavra.length; i++) {
         var dado = document.getElementById("linha" + linha + "-td" + td);
 
@@ -95,7 +122,7 @@ function verificaPalavra(palavra, linha) {
     }
 
     //Verifica quais não existem
-    var td = 1;
+    td = 1;
     for (var i = 0; i < palavra.length; i++) {
         var dado = document.getElementById("linha" + linha + "-td" + td);
 
@@ -105,10 +132,63 @@ function verificaPalavra(palavra, linha) {
         td++;
     }
 
+    //transform nos td
+    // for (var t = 0; t < palavra.length; t++) {
+    //     var flip = document.getElementById("linha" + linha + "-td" + td);
+    //     flip.style.transform = "rotateY(180deg)";
+    //     flip.style.transition = "1s";
+    //     td++;
+    // }
+
     if (resultado == 5) {
+        ganhou(linha);
         return true;
-        //teste
     }
 
     return false;
+}
+
+//
+function ganhou(tentativas) {
+    setTimeout(() => {
+        alert("Você acertou a palavra! \nNúmero de tentativas: " + tentativas);
+        location.reload();
+    }, 500);
+}
+
+function perdeu() {
+    setTimeout(() => {
+        alert("Você errou a palavra! \nA palavra correta era: " + senha);
+        location.reload();
+    }, 500);
+}
+
+
+
+
+function criaLinha(divPrincipal) {
+    for (var i = 1; i < 7; i++) {
+        var linha = document.createElement("div");
+        linha.id = "linha" + i;
+        linha.className = "linha";
+        divPrincipal.appendChild(linha);
+    }
+}
+
+function criaCelula() {
+    var linha = 1;
+    var dado = 1;
+    for (var i = 1; i < 31; i++) {
+        var celula = document.createElement("div");
+        var linhaDiv = document.getElementById("linha" + linha);
+        celula.id = "linha" + linha + "-td" + dado;
+        celula.className = "celula";
+        //celula.innerHTML = "X";
+        linhaDiv.appendChild(celula);
+        if (i % 5 == 0) {
+            linha++;
+            dado = 0;
+        }
+        dado++;
+    }
 }

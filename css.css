@@ -1,35 +1,54 @@
-td {
-    background-color: #615458;
-    font-weight: 600;
+* {
+    margin: 0;
+    padding: 0;
+    background-color: #6E5C62;
     font-family: 'Mitr', sans-serif;
-    color: #FAFAFF;
-    background-color: #615458;
-    border-radius: 10%;
+    color: white;
+}
+
+#container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 100px 550px 300px;
+    grid-template-areas: "topo" "principal" "teclado";
+}
+
+#principal {
+    grid-area: principal;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#topo {
+    grid-area: topo;
+    display: flex;
     justify-content: center;
     align-items: center;
+}
+
+#topo h1 {
+    font-weight: bold;
     text-transform: uppercase;
+}
+
+.celula {
     width: 80px;
     height: 80px;
-    font-size: 40px;
-    margin: 100px;
-}
-
-* {
+    border-radius: 10px;
+    margin-right: 4px;
+    background-color: #312B2D;
     font-size: 30px;
-    background-color: #6E5C62;
-    color: #FAFAFF;
-    text-align: center;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-table,
-h1 {
-    text-align: center;
-}
-
-tr {
-    margin: 100px;
-}
-
-#linharesultado{
-    visibility: hidden;
+.linha {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
