@@ -9,7 +9,7 @@
 #container {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 100px 550px 300px;
+    grid-template-rows: 200px 550px 200px;
     grid-template-areas: "topo" "principal" "teclado";
 }
 
@@ -29,21 +29,24 @@
 }
 
 #topo h1 {
-    font-weight: bold;
-    text-transform: uppercase;
+    font-size: 60px;
+    color: #FFF;
+    -webkit-text-stroke-width: 4px;
+    -webkit-text-stroke-color: #312B2D;
 }
 
 .celula {
-    width: 80px;
-    height: 80px;
-    border-radius: 10px;
+    width: 70px;
+    height: 70px;
+    border-radius: 5px;
     margin-right: 4px;
     background-color: #312B2D;
-    font-size: 30px;
+    font-size: 40px;
     text-transform: uppercase;
     display: flex;
     justify-content: center;
     align-items: center;
+    border: 5px solid #312B2D;
 }
 
 .linha {
